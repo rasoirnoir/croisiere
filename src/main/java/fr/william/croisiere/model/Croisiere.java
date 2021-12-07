@@ -1,7 +1,9 @@
 package fr.william.croisiere.model;
 
+import java.util.Collection;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -9,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Croisiere {
@@ -18,13 +21,17 @@ public class Croisiere {
 	private int id;
 	private String nom;
 	private int duree;
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name="¨PAQUEBOT_ID")
 	private Paquebot paquebot;
 	public Croisiere() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "croisiere")
+	private Collection<Reservation> reservations;
+	
 	public Croisiere(String nom, int duree) {
 		super();
 		this.nom = nom;
@@ -53,6 +60,13 @@ public class Croisiere {
 	}
 	public void setPaquebot(Paquebot paquebot) {
 		this.paquebot = paquebot;
+	}
+	
+	public Collection<Reservation> getReservations() {
+		return reservations;
+	}
+	public void setReservations(Collection<Reservation> reservations) {
+		this.reservations = reservations;
 	}
 	@Override
 	public int hashCode() {
