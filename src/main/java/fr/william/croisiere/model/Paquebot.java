@@ -10,7 +10,7 @@ import javax.persistence.Id;
 @Entity
 public class Paquebot {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
     private String nom;
     private double tonnage;

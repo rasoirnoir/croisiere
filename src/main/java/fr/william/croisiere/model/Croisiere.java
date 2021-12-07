@@ -17,12 +17,12 @@ import javax.persistence.OneToMany;
 public class Croisiere {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String nom;
 	private int duree;
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name="¨PAQUEBOT_ID")
+	@JoinColumn(name="PAQUEBOT_ID")
 	private Paquebot paquebot;
 	public Croisiere() {
 		super();

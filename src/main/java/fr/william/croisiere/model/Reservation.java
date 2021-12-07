@@ -2,6 +2,7 @@ package fr.william.croisiere.model;
 
 import java.util.Calendar;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -10,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -17,7 +20,7 @@ import javax.persistence.TemporalType;
 @Entity
 public class Reservation {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
     private double montant;
     
@@ -27,6 +30,10 @@ public class Reservation {
     @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     @JoinColumn(name="CROISIERE_ID")
     private Croisiere croisiere;
+    
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name="RESERVATION_CLIENT", joinColumns = {@JoinColumn(name="RESERVATION_ID")}, inverseJoinColumns = {@JoinColumn(name="CLIENT_ID")})
+    private Set<Client> clients;
     
 	public Reservation() {
 		super();
@@ -61,6 +68,12 @@ public class Reservation {
 	}
 	public void setCroisiere(Croisiere croisiere) {
 		this.croisiere = croisiere;
+	}
+	public Set<Client> getClients() {
+		return clients;
+	}
+	public void setClients(Set<Client> clients) {
+		this.clients = clients;
 	}
 	@Override
 	public int hashCode() {
